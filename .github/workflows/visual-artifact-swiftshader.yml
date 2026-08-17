@@ -2,18 +2,27 @@ name: Svetlana Visual QA (SwiftShader)
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/visual-artifact-swiftshader.yml'
+      - 'web/**'
+      - 'qa/**'
 
 jobs:
   visual:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
       - name: Install web dependencies
         working-directory: web
-        run: npm install
+        run: npm ci
       - name: Install Chromium
         working-directory: web
         run: npx playwright install --with-deps chromium
@@ -23,7 +32,7 @@ jobs:
       - name: Browser visual test with software WebGL
         working-directory: web
         env:
-          PLAYWRIGHT_CHROMIUM_ARGS: '--use-angle=swiftshader --enable-webgl --ignore-gpu-blocklist --disable-gpu-sandbox'
+          PLAYWRIGHT_CHROMIUM_ARGS: '--headless=new --use-angle=swiftshader --enable-webgl --ignore-gpu-blocklist --disable-gpu-sandbox'
         run: node renderer/playwright-smoke.mjs
       - name: Upload visual evidence
         if: always()
