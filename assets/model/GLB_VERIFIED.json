@@ -1,0 +1,31 @@
+{
+  "asset": "model_base.glb",
+  "sha256": "9a65654d5de83f73201f9577b3fb44478d7ef6d0412b81c2467724a4de1151f5",
+  "size_bytes": 43580292,
+  "container": "glTF 2.0 binary",
+  "generator": "THREE.GLTFExporter r170",
+  "scenes": 1,
+  "nodes": 2,
+  "meshes": 1,
+  "materials": 1,
+  "skins": 0,
+  "animations": 0,
+  "textures": 4,
+  "images": 4,
+  "morph_target_count": 11,
+  "morph_targets": [
+    "blink_L",
+    "blink_R",
+    "browUp_L",
+    "browUp_R",
+    "jawOpen",
+    "mouthOpen",
+    "mouthSmile_L",
+    "mouthSmile_R",
+    "mouthPucker",
+    "mouthFunnel",
+    "mouthClose"
+  ],
+  "rig_version": "svetlana-facial-scaffold-0.5",
+  "production_note": "This is a verified facial scaffold. It is not claimed to contain production skeletal animation until an animation-capable asset is supplied and runtime-tested."
+}
