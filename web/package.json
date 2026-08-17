@@ -1,1 +1,9 @@
-{"name":"svetlana-avatar-web","private":true,"version":"13.0.0","type":"module","scripts":{"dev":"vite","build":"vite build","preview":"vite preview"},"dependencies":{"three":"0.180.0"},"devDependencies":{"vite":"7.1.2"}}
+{
+  "name":"svetlana-avatar-web",
+  "private":true,
+  "version":"13.1.0",
+  "type":"module",
+  "scripts":{"dev":"vite","build":"vite build","preview":"vite preview","qa:browser":"node renderer/playwright-smoke.mjs"},
+  "dependencies":{"three":"0.180.0"},
+  "devDependencies":{"vite":"7.1.2","playwright":"1.55.0"}
+}
