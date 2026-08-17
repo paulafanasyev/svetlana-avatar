@@ -1,23 +1,24 @@
-# Светлана — Realtime AI Avatar
+# Svetlana Avatar
 
-Отдельный репозиторий аватара Светланы для повторного использования в **Мире Самозанятых** и других клиентах.
+Standalone realtime Russian-speaking avatar component for web and Android.
 
-## Архитектура
+## Pipeline
 
-AI → Host → TTS → Conversation Queue → Russian visemes → Native morphs → Lip-sync → Emotion → Gaze/Blink → Realtime Avatar
+AI response → TTS → phoneme timeline → SvetlanaBridge → Russian visemes → facial morphs → emotion/gaze/blink → realtime render.
 
-## Компоненты
+## Repository status
 
-- `runtime/` — web runtime и integration bridges
-- `android/` — Android/WebView host
-- `docs/` — интеграция и протокол
-- `qa/` — честные результаты QA и визуальные regression references
-- `avatar/` — модель, morph targets, visemes и анимационные ассеты
+The repository contains the runtime contracts, morph manifest, Android host sources, integration documentation and asset manifests. Large binary model assets are tracked by SHA-256/LFS metadata and must only be marked present after the actual binary object has been uploaded and verified.
 
-## Статус
+## Verification rule
 
-Кодовые integration layers v9–v13 подготовлены. Реальный Android APK/WebGL2 device runtime пока не считается проверенным, пока не выполнен фактический запуск.
+- **Static**: source/config inspection and JS syntax checks.
+- **Deterministic**: offline protocol tests without network providers.
+- **Runtime**: browser/WebView/device execution.
+- **Visual**: screenshots captured from the actual Svetlana runtime.
 
-## Правило QA
+These categories are never conflated.
 
-Никаких чужих изображений вместо Светланы. Визуальным доказательством считаются только реальные рендеры/скриншоты проекта.
+## Integration
+
+See `docs/INTEGRATION_CONTRACT.md` and `docs/INTEGRATION.md`.

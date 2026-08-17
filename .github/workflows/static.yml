@@ -1,0 +1,25 @@
+name: Svetlana static checks
+on:
+  push:
+  pull_request:
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          node --check runtime/svetlana-v10-host.js
+          node --check runtime/svetlana-v11-tts-adapter.js
+          node --check runtime/russian-visemes.js
+      - name: Check manifests
+        run: |
+          python - <<'PY'
+          import json
+          for p in ['avatar/model/ASSET_MANIFEST.json','avatar/model/morph_manifest.json','runtime/viseme-manifest.json']:
+              with open(p,encoding='utf-8') as f: json.load(f)
+          print('JSON manifests OK')
+          PY

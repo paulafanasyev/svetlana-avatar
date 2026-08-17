@@ -1,0 +1,7 @@
+{
+  "version": "13.1.0",
+  "visemes": ["silence","A","O","U","E","I","MBP","FV","W","L","R","TD","KG","SZ","SH","J","N"],
+  "timing": {"minMs": 35, "coarticulationMs": 70, "releaseMs": 45},
+  "fallback": "silence",
+  "locale": "ru-RU"
+}
