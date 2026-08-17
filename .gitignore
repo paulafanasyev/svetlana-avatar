@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Build
+build/
+.gradle/
+.idea/
+*.iml
+
+# Generated
+node_modules/
+dist/
+coverage/
+
+# Local test artifacts
+*.log
+
+# Large local archives
+*.zip
+*.tar.gz
+*.tgz
