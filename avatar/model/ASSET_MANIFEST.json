@@ -1,0 +1,17 @@
+{
+  "sourceArchive": "svetlana-avatar-v13.0.zip",
+  "assets": [
+    {"path":"model_base.glb","target":"avatar/model/model_base.glb","size":43580292,"sha256":"9a65654d5de83f73201f9577b3fb44478d7ef6d0412b81c2467724a4de1151f5","transferStatus":"pending-binary-upload"},
+    {"path":"assets/svetlana_tts_smoke_test.wav","size":152426,"sha256":"e69cfa850489b6f77007c9ef0882604729d45cd65a669cb0162416dace3289bc","transferStatus":"pending-binary-upload"},
+    {"path":"qa/Base.png","size":141095,"sha256":"131ec3573c50c41eb2b8907535710c3f6fe7d043dfbf534352ec3d5808d1fd8a","transferStatus":"pending-binary-upload"},
+    {"path":"qa/Blink.png","size":140908,"sha256":"5fe62fe4937fced85046cf2d0c12b041008d0349f872d05c735419bc68dc74a1","transferStatus":"pending-binary-upload"},
+    {"path":"qa/Smile.png","size":141135,"sha256":"26f40ab7824507641d80d51b4799acae229e1bedd57ba827a7d6880f0a27e435","transferStatus":"pending-binary-upload"},
+    {"path":"qa/Smile_Speech.png","size":141544,"sha256":"f745d399c34334e3b63119188613df295d10dbe9c5d3e479c8dac43bff5a8595","transferStatus":"pending-binary-upload"},
+    {"path":"qa/A.png","size":140877,"sha256":"97ca21041d9d8845df9fdc909b360886c5e6c2a680f942df534c1e6b6a186703","transferStatus":"pending-binary-upload"},
+    {"path":"qa/O.png","size":140849,"sha256":"d42f0470086753d2bc8e1ea4c752317ff97046109dc7bfd43d626fcf4d66eb78","transferStatus":"pending-binary-upload"},
+    {"path":"qa/U.png","size":140699,"sha256":"e5d6d79ffa7d59676d68feb9576507e608ccb7d15d80661ead05aabe1f3d0540","transferStatus":"pending-binary-upload"},
+    {"path":"qa/MBP.png","size":141034,"sha256":"c36d9b59a057755c79deca2fb41dd5de0044f0d7b308fbfc6e93a5b302f39874","transferStatus":"pending-binary-upload"},
+    {"path":"qa/Surprise.png","size":141294,"sha256":"a7c3847fb18bb561cd88f077735f3fb713d7eaf483eb786f82fa209377c7c9c9","transferStatus":"pending-binary-upload"}
+  ],
+  "note":"The GitHub connector used for this transfer can write UTF-8 text and Git blobs, but the current session does not expose a file-upload path for the local binary assets. No binary is being represented as if it were uploaded. Checksums are recorded for the exact local v13 assets."
+}
