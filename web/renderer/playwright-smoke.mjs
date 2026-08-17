@@ -1,7 +1,8 @@
 import {chromium} from 'playwright';
 import {mkdir} from 'node:fs/promises';
 await mkdir('artifacts',{recursive:true});
-const browser=await chromium.launch({headless:true});
+const browserArgs=(process.env.PLAYWRIGHT_CHROMIUM_ARGS||'').split(/\s+/).filter(Boolean);
+const browser=await chromium.launch({headless:true,args:browserArgs});
 const page=await browser.newPage({viewport:{width:1280,height:800},deviceScaleFactor:1});
 const errors=[];page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
 await page.goto(process.env.SVETLANA_URL||'http://127.0.0.1:4173/renderer/',{waitUntil:'networkidle'});
