@@ -30,6 +30,15 @@ jobs:
       - name: Build
         working-directory: web
         run: npm run build
+      - name: Start production server
+        working-directory: web
+        run: |
+          nohup npm run preview -- --host 127.0.0.1 --port 4173 > /tmp/svetlana-vite.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4173/renderer/ >/dev/null; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:4173/renderer/ >/dev/null
       - name: Browser visual test with software WebGL
         working-directory: web
         env:
