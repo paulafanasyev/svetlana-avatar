@@ -6,11 +6,6 @@ on:
         description: 'Canonical model_base.glb URL (must match SHA-256 below)'
         required: true
         type: string
-  push:
-    paths:
-      - 'web/**'
-      - 'qa/**'
-      - '.github/workflows/visual-artifact.yml'
 jobs:
   browser:
     runs-on: ubuntu-latest
@@ -26,9 +21,9 @@ jobs:
         working-directory: web
       - name: Materialize canonical GLB
         env:
-          MODEL_URL: ${{ inputs.model_url || secrets.SVETLANA_MODEL_URL }}
+          MODEL_URL: ${{ inputs.model_url }}
         run: |
-          test -n "$MODEL_URL" || { echo 'No model URL. Upload the canonical GLB or set SVETLANA_MODEL_URL.'; exit 1; }
+          test -n "$MODEL_URL" || { echo 'No model URL.'; exit 1; }
           node scripts/prepare-model.mjs
         working-directory: web
       - run: npm run build
