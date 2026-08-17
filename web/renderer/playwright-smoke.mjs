@@ -1,10 +1,14 @@
-import { chromium } from 'playwright';
+import {chromium} from 'playwright';
+import {mkdir} from 'node:fs/promises';
+await mkdir('artifacts',{recursive:true});
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1280,height:800},deviceScaleFactor:1});
 const errors=[];page.on('pageerror',e=>errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
 await page.goto(process.env.SVETLANA_URL||'http://127.0.0.1:4173/renderer/',{waitUntil:'networkidle'});
-await page.waitForTimeout(1000);
+await page.waitForFunction(()=>document.documentElement.dataset.svetlanaReady==='true',{timeout:15000});
 if(errors.length)throw new Error('browser_errors:'+errors.join('|'));
+const status=await page.locator('#status').innerText();
+if(!status.startsWith('READY'))throw new Error(`renderer_not_ready:${status}`);
 await page.screenshot({path:'artifacts/svetlana-browser-smoke.png',fullPage:true});
-console.log('browser smoke screenshot written');
+console.log(`browser visual PASS: ${status}`);
 await browser.close();
