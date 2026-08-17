@@ -1,0 +1,1 @@
+Visual QA policy: no CDN dependencies. Three.js and GLTFLoader must resolve from npm during Vite build. The browser test must fail clearly if the model asset is a Git LFS pointer rather than the real GLB.
