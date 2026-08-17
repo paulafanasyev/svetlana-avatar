@@ -1,13 +1,21 @@
 name: Svetlana Browser Visual QA
 on:
   workflow_dispatch:
+    inputs:
+      model_url:
+        description: 'Canonical model_base.glb URL (must match SHA-256 below)'
+        required: true
+        type: string
   push:
     paths:
       - 'web/**'
       - 'qa/**'
+      - '.github/workflows/visual-artifact.yml'
 jobs:
   browser:
     runs-on: ubuntu-latest
+    env:
+      MODEL_SHA256: 9a65654d5de83f73201f9577b3fb44478d7ef6d0412b81c2467724a4de1151f5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,15 +25,28 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: npm ci
         working-directory: web
-      - run: npx playwright install --with-deps chromium
+      - name: Materialize canonical GLB
+        env:
+          MODEL_URL: ${{ inputs.model_url || secrets.SVETLANA_MODEL_URL }}
+        run: |
+          test -n "$MODEL_URL" || { echo 'No model URL. Upload the canonical GLB or set SVETLANA_MODEL_URL.'; exit 1; }
+          node scripts/prepare-model.mjs
         working-directory: web
       - run: npm run build
         working-directory: web
+      - run: npx playwright install --with-deps chromium
+        working-directory: web
+      - run: npm run preview -- --host 127.0.0.1 > /tmp/svetlana-vite.log 2>&1 &
+        working-directory: web
       - run: node renderer/playwright-smoke.mjs
         working-directory: web
-      - uses: actions/upload-artifact@v4
+      - name: Upload browser evidence
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: svetlana-browser-visual-qa
-          path: web/artifacts/
+          path: |
+            web/artifacts/
+            web/public/assets/model/model_base.glb.sha256
+            web/dist/
           if-no-files-found: warn
