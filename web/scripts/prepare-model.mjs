@@ -1,0 +1,15 @@
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const url=process.env.MODEL_URL;
+const expected=process.env.MODEL_SHA256||'9a65654d5de83f73201f9577b3fb44478d7ef6d0412b81c2467724a4de1151f5';
+if(!url)throw new Error('MODEL_URL is required to materialize the canonical GLB in CI');
+await mkdir('public/assets/model',{recursive:true});
+const response=await fetch(url);
+if(!response.ok)throw new Error(`MODEL_DOWNLOAD_FAILED:${response.status}`);
+const data=Buffer.from(await response.arrayBuffer());
+const sha=createHash('sha256').update(data).digest('hex');
+if(sha!==expected)throw new Error(`MODEL_SHA256_MISMATCH expected=${expected} actual=${sha}`);
+if(data.length!==43580292)throw new Error(`MODEL_SIZE_MISMATCH expected=43580292 actual=${data.length}`);
+await writeFile('public/assets/model/model_base.glb',data);
+await writeFile('public/assets/model/model_base.glb.sha256',`${sha}  model_base.glb\n`);
+console.log(`Canonical Svetlana GLB verified: ${data.length} bytes ${sha}`);
